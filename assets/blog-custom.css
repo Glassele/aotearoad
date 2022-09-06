@@ -1,0 +1,38 @@
+@media screen and (max-width: 1366px){
+  .custom_width .home-slideshow {
+    padding-top: 0 !important;
+  }
+}
+@media screen and (max-width: 991px){
+  .custom_width .home-slideshow .container {
+    max-width: 100%;
+  }
+  body.template-blog .ge-about-banner .adaptive_height {
+    min-height: 330px;
+  }
+  body.template-blog .adaptive_height img {
+    object-fit: cover;
+  }
+}
+@media screen and (max-width: 640px){
+  body.template-blog .ge-about-banner .slide-content {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 414px){
+  body.template-blog .ge-about-banner .adaptive_height {
+    min-height: 330px;
+  }
+}
+@media screen and (max-width: 375px){
+  body.template-blog .ge-about-banner .adaptive_height {
+    min-height: 340px;
+  }
+}
+@media screen and (max-width: 320px){
+  body.template-blog .slide-content.move-bottom {
+   top: 37% !important;
+   bottom: -10% !important;
+  }
+}

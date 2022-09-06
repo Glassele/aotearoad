@@ -1,0 +1,141 @@
+{% case section.settings.collection_results_per_row1 %}
+  {% when '2' %}
+  	{%- assign grid_item_width = 'col-6' -%}
+	{%- assign row = 'two-items' -%}
+  {% when '3' %}
+  	{%- assign grid_item_width = 'col-6 col-md-4' -%}
+	{%- assign row = 'three-items' -%}
+  {% when '4' %}
+  	{%- assign grid_item_width = 'col-6 col-md-4 col-lg-3' -%}
+	{%- assign row = 'four-items' -%}
+  {% when '5' %}
+  	{%- assign grid_item_width = 'col-6 col-md-4 col-lg-3 col5' -%}
+	{%- assign row = 'five-items' -%}
+  {% when '6' %}
+  	{%- assign grid_item_width = 'col-6 col-md-4 col-lg-3 col-xl-2' -%}
+	{%- assign row = 'six-items' -%}
+{% endcase %}
+
+{% if section.settings.show_cart_best_sellers_product %}
+<section class="related-products best-sell-product" data-featured-products>
+  {% if section.settings.title != blank %}
+  <div class="widget-title not-before">
+    <h3 class="box-title">
+      <span class="title"> 
+        {% render 'multilang' with section.settings.title %}
+      </span>
+    </h3>
+  </div>
+  {% endif %}
+
+  <div class="widget-product">
+    <div class="products-grid row {{ row }}" data-row="{{ section.settings.collection_results_per_row1 }}">
+      {% for product in collections[section.settings.show_slider_featured_collection].products limit:section.settings.slider_featured_limit_all %}
+      <div class="grid-item {{ grid_item_width }}{% if settings.product_image_border %} grid-item-border{% endif %} ">
+        {% if settings.style_product_grid == 'style_product_grid_2' %}
+          {% render 'product-grid-item-style-2' with product as product, serial: forloop.index %}
+        {% elsif settings.style_product_grid == 'style_product_grid_3' %}
+          {% render 'product-grid-item-style-3' with product as product, serial: forloop.index %}
+        {% elsif settings.style_product_grid == 'style_product_grid_4' %}
+          {% render 'product-grid-item-style-4' with product as product, serial: forloop.index %}
+        {% elsif settings.style_product_grid == 'style_product_grid_6' %}
+          {% render 'product-grid-item-style-6' with product as product, serial: forloop.index %}
+        {% elsif settings.style_product_grid == 'style_product_grid_7' %}
+          {% render 'product-grid-item-style-7' with product as product, serial: forloop.index %}
+        {% else %}
+          {% render 'product-grid-item' with product as product, serial: forloop.index %}
+        {% endif %}
+      </div>
+
+      {% else %}
+      {% for product in (1..section.settings.slider_featured_limit_all) %}
+      <div class="grid-item {{ grid_item_width }}">
+        <div class="grid-view-item no-product">
+          <div class="product-top">
+            <div class="not_img">
+              Product Img
+            </div>
+          </div>
+
+          <div class="product-bottom">
+            <div class="product-title">
+              <span>
+                Your product's name
+              </span>
+            </div>
+
+            <div class="price-box">
+              <span> $250.00 </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %} 
+
+<style>
+  body.template-cart  .products-grid .grid-item:not(.grid-item-mansory) .product-image img {
+    background-color: #a9dde4;
+  }
+  body.template-cart .best-sell-product .product-content {
+    display: none;
+  }
+  body.template-cart .best-sell-product .product-item .product-des.abs-center {
+    top: unset;
+    bottom: 0;
+  }
+  body.template-cart .best-sell-product .product-item .action {
+    max-width: 80%;
+  }
+  body.template-cart .best-sell-product .product-title, 
+  body.template-cart .best-sell-product .product-name {
+    font-size: 20px;
+    line-height: normal;
+  }
+  body.template-cart .best-sell-product .product-item .product-bottom {
+    text-align: left;
+  }
+  body.template-cart .best-sell-product .price-box {
+    font-weight: 300;
+  }
+  body.template-cart .best-sell-product .add-to-cart-btn {
+    font-size: 20px;
+    min-width: unset;
+    background-color: transparent;
+    border: 2px solid #fff;
+  }
+  body.template-cart .best-sell-product .add-to-cart-btn:hover {
+    background-color: var(--background_1);
+    color: var(--color_1);
+    border-color: var(--border_1);
+  }
+  body.template-cart .wrapper-cart-template .cart-list .product-name {
+    line-height: normal;
+  }
+  @media screen and (max-width: 1199px){
+    body.template-cart .best-sell-product .product-item .action {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1rem;
+    }
+    body.template-cart .breadcrumb {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 575px){
+    body.template-cart .best-sell-product .add-to-cart-btn {
+      font-size: 16px;
+    }
+  }
+  @media screen and (max-width: 375px){
+    body.template-cart .best-sell-product .add-to-cart-btn {
+      font-size: 15px;
+      padding-left: 0.6rem !important;
+      padding-right: 0.6rem !important;
+    }
+  }
+</style>

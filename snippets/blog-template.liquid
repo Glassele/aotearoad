@@ -1,0 +1,168 @@
+{% if section.settings.blog_post != blank %}
+  {% assign limit = section.settings.blog_post %}
+{% else %}
+  {% assign limit = 3 %}
+{% endif %}
+
+<div id="shopify-section-blog-template" class="shopify-section col-12 col-xl-9 col-main">
+  {% paginate blog.articles by limit %}
+  <div class="content-blog blog-default">
+    
+    {% if blog.all_tags.size > 0 %}
+    <ul class="journal-links">
+      <li{% if current_tags %}{% else %} class="selected"{% endif %}><a href="/blogs/journal">All</a></li>
+      {% for tag in blog.all_tags %}
+
+      {% if current_tags contains tag %}
+      <li class="selected">{{ tag }}</li>
+      {% else %}
+      <li>{{ tag | link_to_tag: tag }}</li>
+      {% endif %}
+
+      {% endfor %}
+    </ul>
+    {% endif %}
+    
+    
+    <div class="row row-cols-1 row-cols-md-2 g-4 list-blog justify-content-center">
+      {% for article in blog.articles %}
+      {% render 'blog-item' with article as article %}
+      {% endfor %}
+    </div>
+   
+
+    {% if paginate.pages > 1 %}
+    {% render 'pagination' paginate: paginate %}
+    {% endif %}
+  </div>
+  {% endpaginate %}
+</div>
+
+<style>
+  .halo-blog-content .article-details .article-excerpt {
+    text-align: {{ section.settings.blog_text_align }};
+  }
+  .halo-blog-content .list-blog .blog-item {
+    flex-basis: 33.33%;
+    max-width: 33.33%;
+    margin-bottom: 70px;
+  }
+  .halo-blog-content .journal-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .halo-blog-content .journal-links li.selected a,
+  .halo-blog-content .journal-links li.selected {
+    color: #a9dde4;
+    font-weight: bold;
+  }
+  .halo-blog-content .journal-links li a,
+  .halo-blog-content .journal-links li {
+    font-size: 20px;
+  }
+  .halo-blog-content .list-blog .blog-item + .blog-item {
+    border-top: unset;
+     padding-top: 0;
+  }
+  .halo-blog-content .list-blog .blog-item .article__image {
+    height: 440px;
+    object-fit: cover;
+    width: 100%;
+  }
+  .halo-blog-content .article-details {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .halo-blog-content .article-details .article-img {
+    margin-bottom: 0.6rem;
+    height: auto;
+  }
+  .halo-blog-content .animate-scale {
+    height: 100%;
+  }
+  .halo-blog-content .blog_author {
+    margin-bottom: 0;
+  }
+  .halo-blog-content .wishlist-pagination, 
+  .halo-blog-content .pagination-center {
+    text-align: center;
+  }
+  .halo-blog-content .article-tag {
+    margin-bottom: 1rem !important;
+  }
+  .halo-blog-content .article-title {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: normal;
+    margin-bottom: 1rem;
+  }
+  .halo-blog-content .article-details .des {
+    line-height: normal;
+    margin-bottom: 0.6rem;
+  }
+  .halo-blog-content .actions a {
+    text-decoration: underline;
+    text-transform: lowercase;
+    font-size: 15px;
+    color: #3e3e3e;
+  }
+  .halo-blog-content .pagination-center li.active span {
+    background-color: #000;
+    color: #fff;
+    border-radius: 50px;
+    width: 34px;
+    height: 34px;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: unset;
+  }
+
+  @media screen and (max-width: 1199px){
+    .halo-blog-content .list-blog .blog-item {
+      flex-basis: 50%;
+      max-width: 50%;
+    }
+  }
+  @media screen and (max-width: 991px){
+    .blog-template .container {
+      max-width: 100%;
+    }
+  }
+  @media screen and (max-width: 767px){
+    .halo-blog-content .list-blog .blog-item .article__image {
+      height: 350px;
+    }
+  }
+  @media screen and (max-width: 640px){
+    .halo-blog-content .list-blog .blog-item .article__image {
+      height: 300px;
+    }
+    .halo-blog-content .list-blog {
+      margin-bottom: 0;
+    }
+  }
+  @media screen and (max-width: 575px){
+    .halo-blog-content .list-blog .blog-item .article__image {
+      height: 260px;
+    }
+  }
+  @media screen and (max-width: 440px){
+    .halo-blog-content .list-blog .blog-item .article__image {
+      height: 200px;
+    }
+  }
+  @media screen and (max-width: 375px){
+    .halo-blog-content .list-blog .blog-item {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+    .halo-blog-content .list-blog .blog-item .article__image {
+      height: auto;
+    }
+  }
+</style>

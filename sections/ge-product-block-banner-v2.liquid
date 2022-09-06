@@ -1,0 +1,544 @@
+{% if section.blocks.size > 0 %}
+<div class="home-custom-block {% if section.settings.layout_style == 'layout_style_2' %} layout_style_2{% endif %}" id="custom-block-{{section.id}}">
+    <div class="{% if section.settings.layout == 'default' %}container{% elsif section.settings.layout == 'full' %}container-fluid{% else %}container-padd60{% endif %}">
+        {% if section.settings.widget_title != blank %}
+        <div class="widget-title{% if section.settings.title_style == 'style_2' %} not-before{% endif %}">   
+            <h3 class="box-title">
+                <span class="title"> 
+                    {% render 'multilang' with section.settings.widget_title %}
+                </span>
+            </h3>
+            {% if section.settings.widget_des != blank %}
+            <p>
+                {% render 'multilang' with section.settings.widget_des %}
+            </p>        
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="row">
+            {% for block in section.blocks %}
+            
+            {% if block.type == 'smallImg' %}
+          
+            {% if product.metafields.my_fields.product_ingredients.value != blank %}
+
+              {% assign items = product.metafields.my_fields.product_ingredients.value %} 
+     
+              {% for item in items.product-ingredients %}
+              
+              <div class="col-12 {% if section.settings.layout_style == 'layout_style_2' %} item_style_2{% endif %}" id="custom-block-style-{{block.id}}">
+                <div class="custom-block-banner banner-small-img{% if block.settings.content_style == 'style_2' %} content_style_2{% endif %}">
+                  <div class="row{% if block.settings.banner_is == 'right'%} flex-md-row-reverse{% endif %}">
+                    <div class="img-box col-12 col-md-6 column">
+                      {% if item.image != blank %}
+                      <a class="animate-scale adaptive_height" href="{{ block.settings.link }}" style="padding-top: 100%">
+                        <img data-srcset="{{ item.image }}" alt="{{ block.settings.image.alt | default: shop.name }}" class="lazyload" data-sizes="auto">
+                      </a>
+                      {% else %}
+                      <a class="animate-scale" href="{{ block.settings.link }}">
+                        <div class="not_img">
+                          585 x 485px
+                        </div>   
+                      </a>
+                      {% endif %}
+                      {% if item.video_link != blank %}
+                      <div class="video-open-popup">
+                        <a data-src="{{ item.video_link }}" href="javascript:void(0)">
+                          {% render 'icons8-play' %}
+                        </a>
+                      </div>
+
+                      <style>
+                        #custom-block-style-{{block.id}} .video-open-popup a {
+                          color: {{ block.settings.video_icon_color }};
+                          background-color: {{ block.settings.bg_video_icon | color_modify: 'alpha', 0.4 }};
+                          max-width: 287px;
+                          width: 100%;
+                          height: 287px;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          border-radius: 50%;
+                        }
+
+                      </style>
+                      
+                      {% else %}
+
+                      <style>
+                        #custom-block-style-{{block.id}} .img-box > a {
+                          pointer-events: none;
+                        }
+                      </style>
+                      {% endif %}
+                    </div>
+
+                    {% if item.header != blank or item.body != blank %}
+                    <div class="content-box col-12 col-md-6 column">               
+                      <div class="banner-content{% if block.settings.banner_is == 'left'%} right{% endif %}"
+                           style="{% if block.settings.bg_banner_content != blank %}
+                                  background-color: {{ block.settings.bg_banner_content }};
+                                  {% endif %}">
+                        <div class="inner-content">
+               
+
+                          {% if item.header != blank %}
+                          <h2 class="banner-heading"
+                              style="{% if block.settings.font_size_banner_heading != blank %}
+                                     {% if section.settings.layout_style == 'layout_style_2' %}
+                                     font-size: {{ block.settings.font_size_banner_heading }};
+                                     {% else %}
+                                     font-size: {{ block.settings.font_size_banner_heading }};
+                                     {% endif %}
+                                     {% endif %}
+                                     {% if block.settings.color_banner_heading != blank %}
+                                     color:{{ block.settings.color_banner_heading }};
+                                     {% endif %}">
+                            <span class="line" style="background-color: {{ block.settings.color_banner_heading }};"></span>
+                            {% render 'multilang' with item.header  %}
+                          </h2>
+                          {% endif %}
+
+                          {% if item.body != blank %}
+                          <div class="banner-des"
+                             style="{% if block.settings.font_size_banner_des != blank %}
+                                    font-size: {{ block.settings.font_size_banner_des }};
+                                    {% endif %}
+                                    {% if block.settings.color_banner_des != blank %}
+                                    color: {{ block.settings.color_banner_des }};
+                                    {% endif %}">
+                            {% render 'multilang' with item.body  %}
+                          </div>
+                          {% endif %}
+
+                        </div>
+                      </div>
+                      <style>
+
+                        {% if block.settings.content_style == 'style_2' %}
+                        #custom-block-style-{{block.id}} .banner-content .banner-sub-heading {
+                          margin-bottom: {{ block.settings.banner_heading_sub_margin }}
+                        }
+                        {% endif %}
+
+                        @media (max-width: 1199px) {
+                          #custom-block-style-{{block.id}} .banner-content .banner-sub-heading {
+                            font-size: {{ block.settings.font_size_banner_heading_sub }} !important;
+                          }
+                          #custom-block-style-{{block.id}} .banner-content .banner-heading {
+                            font-size: {{ block.settings.font_size_banner_heading_mb }} !important;
+                            line-height: 1.25em;
+                          }
+                          #custom-block-style-{{block.id}} .banner-content .banner-des {
+                            font-size: {{ block.settings.font_size_banner_des_mb }} !important;
+                          }
+                          {% if block.settings.content_style == 'style_2' %}
+                          #custom-block-style-{{block.id}} .banner-content .banner-sub-heading {
+                            margin-bottom: {{ block.settings.banner_heading_sub_margin_mb }}
+                          }
+                          {% endif %}
+                        }
+                        {% if block.settings.banner_button == blank %}
+                        #custom-block-{{section.id}} .banner-content .banner-des {
+                          margin-bottom: 0;
+                        }
+                        {% endif %}
+                      </style>
+                    </div>
+                    {% endif %}
+                  </div>          
+                </div>      
+              </div>
+              
+              {% endfor %}
+            {% endif %}
+          
+          
+            {% endif %}        
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+  {% assign margin_bottom =  section.settings.margin_bottom %}  
+    
+    {% if section.settings.display_bg_banner %}
+        @media (max-width: 767px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ section.settings.margin_bottom_mb }}px;
+              padding-bottom: {{ section.settings.margin_bottom_mb }}px;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1199px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ section.settings.margin_bottom_tab }}px;
+              padding-bottom: {{ section.settings.margin_bottom_tab }}px;
+            }
+        }
+        @media (min-width: 1200px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ margin_bottom }}px;
+              padding-bottom: {{ margin_bottom }}px;
+            }
+        }
+    {% else %}
+        @media (max-width: 767px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ section.settings.margin_bottom_mb }}px;
+              padding-bottom: {{ section.settings.margin_bottom_mb }}px;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1199px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ section.settings.margin_bottom_tab }}px;
+              padding-bottom: {{ section.settings.margin_bottom_tab }}px;
+            }
+        }
+        @media (min-width: 1200px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ margin_bottom }}px;
+              padding-bottom: {{ margin_bottom }}px;
+            }
+        }
+    {% endif %}
+
+
+    #custom-block-{{ section.id }} .img-box {
+        text-align: {{ section.settings.img_align }};
+    }
+
+    {% if section.settings.display_bg_banner %}
+        #custom-block-{{ section.id }} {
+            background-color: {{ section.settings.bg_color_banner }};
+        }
+        #custom-block-{{ section.id }} .banner-large-img {
+            max-width: 1170px;
+            margin: 0 auto;
+        }
+    {% endif %}
+    
+</style>
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "Ingredients Metafields",
+    "class": "ge-product-block-banner-v2 home-custom-block-baner-sections",
+    "max_blocks": 1,
+    "settings": [
+        {
+            "type": "select",
+            "id": "layout",
+            "label": "Banner Layout:",
+            "options": [
+                {
+                    "value": "default",
+                    "label": "Default"
+                },
+                {
+                    "value": "padd_60",
+                    "label": "Boxed"
+                },
+                {
+                    "value": "full",
+                    "label": "Full Width"
+                }
+            ],
+            "default": "full"
+        },
+        {
+            "type": "select",
+            "id": "layout_style",
+            "label": "Layout Style:",
+            "options": [
+              {
+                "value": "layout_style_1",
+                "label": "Style 1" 
+              },
+              { 
+                "value": "layout_style_2",
+                "label": "Style 2" 
+              }
+            ],
+            "default": "layout_style_1"
+        },
+        {
+            "type": "checkbox",
+            "id": "display_bg_banner",
+            "label": "Display Background Color",
+            "default": false
+        },
+        {
+            "type" : "color",
+            "id" : "bg_color_banner",
+            "label" : "Background Color",
+            "default" : "#f5f5f5"
+        },
+        {
+            "type": "header",
+            "content": "Header"
+        },
+        {
+            "type": "text",
+            "id": "widget_title",
+            "label": "Widget Title"
+        },
+        {
+            "type" : "textarea",
+            "id" : "widget_des",
+            "label" : "Description"
+        },
+        {
+            "type": "select",
+            "id": "title_style",
+            "label": "Title Style:",
+            "options": [
+                {
+                    "value": "style_1",
+                    "label": "Style 1" 
+                },
+                { 
+                    "value": "style_2",
+                    "label": "Style 2" 
+                }          
+            ],
+            "default": "style_1"
+        },
+        {
+            "type": "select",
+            "id": "img_align",
+            "label": "Image Align:",
+            "default": "center",
+            "options": [
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "left",
+                    "label": "Left"
+                },              
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ]
+        }, 
+        {
+            "type": "header",
+            "content": "Section Padding:"
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom_mb",
+            "label": "Mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 25
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom_tab",
+            "label": "Tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 30
+        },             
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "label": "Desktop",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 30
+        }       
+    ],
+    "blocks": [
+        {
+            "type": "smallImg",
+            "name": "Small Image",
+            "settings": [
+            {
+                "type": "select",
+                "id": "banner_is",
+                "label": "Banner is:",
+                "default": "left",
+                "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },              
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+                ]
+            }, 
+            {
+                "type": "header",
+                "content": "Banner Content"
+            },
+            {
+                "type": "select",
+                "id": "content_style",
+                "label": "Content Style:",
+                "options": [
+                    {
+                        "value": "style_1",
+                        "label": "Style 1" 
+                    },
+                    { 
+                        "value": "style_2",
+                        "label": "Style 2" 
+                    }          
+                ],
+                "default": "style_1"
+            },
+            {
+                "type" : "color",
+                "id" : "bg_banner_content",
+                "label" : "Background Banner Content",
+                "default" : "#fafafa"
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_heading",
+                "label" : "Heading Font Size ",
+                "default" : "20px"
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_heading_mb",
+                "label" : "Heading Font Size Mobile",
+                "default" : "20px"
+            },
+            {
+                "type" : "color",
+                "id" : "color_banner_heading",
+                "label" : "Heading Color",
+                "default" : "#232323"
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_des",
+                "label" : "Description Font Size",
+                "default" : "12px"
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_des_mb",
+                "label" : "Description Font Size Mobile",
+                "default" : "12px"
+            },
+            {
+                "type" : "color",
+                "id" : "color_banner_des",
+                "label" : "Description Color",
+                "default" : "#232323"
+            },
+            {
+              "type" : "color",
+              "id" : "video_icon_color",
+              "label" : "Video Icon Color",
+              "default" : "#fff"
+            },
+            {
+              "type" : "color",
+              "id" : "bg_video_icon",
+              "label" : "Video Icon Background Color",
+              "default" : "#000"
+            }
+        ]
+    }
+    ],
+    "presets": [
+        {
+            "name": "GE Product Block Ingredients Banners",
+            "category": "GE Product Block Ingredients Banner",
+            "blocks": [
+                {
+                    "type": "smallImg"
+                }         
+            ]
+        }
+    ]
+  }
+{% endschema %}
+
+
+
+<style>
+  #custom-block-{{section.id}} .banner-content {
+    text-align: left;
+  }
+  #custom-block-{{section.id}} .banner-content .banner-heading .line {
+    display: none;
+  }
+  #custom-block-{{section.id}} .banner-content .banner-des {
+    max-width: 100%;
+    margin-left: 0;
+  }
+  #custom-block-{{section.id}} .inner-content {
+    max-width: 570px;
+    width: 100%;
+  }
+  #custom-block-{{section.id}} .banner-content .banner-button {
+    font-size: 20px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border: 2px solid;
+  }
+  #custom-block-{{section.id}} .banner-content .banner-heading {
+    margin-bottom: 0 !important;
+  }
+  #custom-block-{{section.id}} .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  #custom-block-{{section.id}} .banner-des ul {
+    padding-left: 1rem;
+    margin-top: 1rem;
+  }
+  #custom-block-{{section.id}} .banner-des ul li {
+    list-style: disc;
+    line-height: normal;
+    font-weight: bold;
+  }
+  #custom-block-{{section.id}} .banner-des h5,
+  #custom-block-{{section.id}} .banner-des h6 {
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+  #custom-block-{{section.id}} .video-open-popup svg {
+    stroke: rgb(250, 235, 215);
+    width: 125px;
+    height: 125px;
+  }
+  #custom-block-{{section.id}} .banner-des p:last-of-type {
+    margin-bottom: 1rem;
+  }
+  @media screen and (max-width: 1199px){
+    #custom-block-{{section.id}} .img-box .adaptive_height {
+      height: 100%;
+    }
+    #custom-block-{{section.id}} .adaptive_height img {
+      object-fit: cover;
+    }
+  }
+  @media screen and (max-width: 575px){
+    #custom-block-{{section.id}} .video-open-popup a {
+      max-width: 200px;
+      height: 200px;
+    }
+    #custom-block-{{section.id}} .video-open-popup svg {
+      width: 90px;
+      height: 90px;
+    }
+  }
+</style>

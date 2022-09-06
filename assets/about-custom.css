@@ -1,0 +1,35 @@
+.ge-home-best-sellers .widget-title {
+  margin-bottom: 25px !important;
+}
+.ge-home-best-sellers > div {
+  margin-top: 160px;
+}
+.main-content {
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 1199px){
+  .ge-home-block-banner .img-box a {
+    height: 100%;
+  }
+  .ge-home-block-banner .adaptive_height img {
+    object-fit: cover;
+  }
+  .banner-small-img .banner-content {
+    padding: 3rem;
+  }
+}
+
+@media screen and (max-width: 767px){
+  .ge-home-block-banner .banner-content {
+    text-align: center !important;
+  }
+  .ge-home-best-sellers > div {
+    margin-top: 50px;
+  }
+}
+@media screen and (max-width: 414px){
+  .banner-small-img .banner-content {
+    padding: 1rem;
+  }
+}

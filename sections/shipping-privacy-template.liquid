@@ -1,0 +1,38 @@
+<div class="container">
+  {% render 'breadcrumb' %}
+    
+    <div class="wrapper">
+      <div class="row justify-content-md-center">
+        <div class="col-md-10 col-lg-10">   
+          <h2>{{ page_title }}</h2>
+            {% if page.content != blank %}
+              <div class="rte">
+                {{ page.content }}
+              </div>
+              {% endif %}
+        </div>
+      </div>
+    </div>
+  
+</div>
+
+{% schema %}
+{
+  "name": "Shipping Liquid",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "shipping_liquid",
+      "label": "Shipping Liquid"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Liquid"
+    }
+  ]
+}
+{% endschema %}
+

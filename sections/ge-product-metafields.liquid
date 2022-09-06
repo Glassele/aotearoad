@@ -1,0 +1,936 @@
+{% if section.blocks.size > 0 %}
+<div class="home-custom-block {% if section.settings.layout_style == 'layout_style_2' %} layout_style_2{% endif %}" id="custom-block-{{section.id}}">
+    <div class="{% if section.settings.layout == 'default' %}container{% elsif section.settings.layout == 'full' %}container-fluid{% else %}container-padd60{% endif %}">
+        {% if section.settings.widget_title != blank %}
+        <div class="widget-title{% if section.settings.title_style == 'style_2' %} not-before{% endif %}">   
+            <h3 class="box-title">
+                <span class="title"> 
+                    {% render 'multilang' with section.settings.widget_title %}
+                </span>
+            </h3>
+            {% if section.settings.widget_des != blank %}
+            <p>
+                {% render 'multilang' with section.settings.widget_des %}
+            </p>        
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="row">
+            {% for block in section.blocks %}
+            {% if block.type == 'smallImg' %}
+            <div class="col-12 {% if section.settings.layout_style == 'layout_style_2' %} item_style_2{% endif %}" id="custom-block-style-{{block.id}}">
+                <div class="custom-block-banner banner-small-img{% if block.settings.content_style == 'style_2' %} content_style_2{% endif %}">
+                    <div class="row{% if block.settings.banner_is == 'right'%} flex-md-row-reverse{% endif %}">
+                      {% if product.metafields.my_fields.product_directions.value != blank %}
+                           {% assign items = product.metafields.my_fields.product_directions.value %}
+                        {% for item in items.product-directions %}
+                        <div class="content-box col-12 col-md-6 column">               
+                            <div class="banner-content{% if block.settings.banner_is == 'left'%} right{% endif %}"
+                                style="{% if block.settings.bg_banner_content != blank %}
+                                        background-color: {{ block.settings.bg_banner_content }};
+                                        {% endif %}">
+                              <div class="inner-content">
+                            {% comment %}
+                                {% if block.settings.banner_heading_sub != blank %}
+                                <h3 class="banner-sub-heading"
+                                    style="{% if block.settings.font_size_banner_heading_sub != blank %}
+                                            font-size: {{ block.settings.font_size_banner_heading_sub }};
+                                            {% endif %}
+                                            {% if block.settings.color_banner_heading_sub != blank %}
+                                            color:{{ block.settings.color_banner_heading_sub }};
+                                            {% endif %}">
+                                    {% render 'multilang' with block.settings.banner_heading_sub  %}
+                                </h3>
+                                {% endif %}
+                            {% endcomment %}
+
+                                {% if item.header != blank %}
+                                <h2 class="banner-heading"
+                                    style="{% if block.settings.font_size_banner_heading != blank %}
+                                                {% if section.settings.layout_style == 'layout_style_2' %}
+                                                    font-size: {{ block.settings.font_size_banner_heading }};
+                                                {% else %}
+                                                    font-size: {{ block.settings.font_size_banner_heading }};
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if block.settings.color_banner_heading != blank %}
+                                            color:{{ block.settings.color_banner_heading }};
+                                            {% endif %}">
+                                    <span class="line" style="background-color: {{ block.settings.color_banner_heading }};"></span>
+                                    {% render 'multilang' with item.header  %}
+                                </h2>
+                                {% endif %}
+
+                                {% if item.body != blank %}
+                                <div class="banner-des"
+                                    style="{% if block.settings.font_size_banner_des != blank %}
+                                            font-size: {{ block.settings.font_size_banner_des }};
+                                            {% endif %}
+                                            {% if block.settings.color_banner_des != blank %}
+                                            color: {{ block.settings.color_banner_des }};
+                                            {% endif %}">
+                                    {% render 'multilang' with item.body  %}
+                                </div>
+                                {% endif %}
+
+                                {% if block.settings.banner_button != blank %}
+                                <a href="{{ block.settings.link }}" class="banner-button btn"
+                                    style="{% if block.settings.bg_banner_button != blank %}
+                                            background-color:{{ block.settings.bg_banner_button }};
+                                            {% endif %}
+                                            {% if block.settings.border_banner_button != blank %}
+                                            border-color:{{ block.settings.border_banner_button }};
+                                            {% endif %}
+                                            {% if block.settings.color_banner_button != blank %}
+                                            color:{{ block.settings.color_banner_button }};
+                                            {% endif %}">
+                                    {% render 'multilang' with block.settings.banner_button %}
+                                </a>
+                                {% endif %}
+                                
+                              </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% if product.metafields.my_fields.product_ingredients.value != blank %}
+                        {% assign items = product.metafields.my_fields.product_ingredients.value %}
+                        {% for item in items.product-ingredients %}
+                        <div class="content-box col-12 col-md-6 column">               
+                            <div class="banner-content{% if block.settings.banner_is == 'left'%} right{% endif %}"
+                                style="{% if block.settings.bg_banner_content != blank %}
+                                        background-color: {{ block.settings.bg_banner_content }};
+                                        {% endif %}">
+                              <div class="inner-content">
+                            {% comment %}
+                                {% if block.settings.banner_heading_sub != blank %}
+                                <h3 class="banner-sub-heading"
+                                    style="{% if block.settings.font_size_banner_heading_sub != blank %}
+                                            font-size: {{ block.settings.font_size_banner_heading_sub }};
+                                            {% endif %}
+                                            {% if block.settings.color_banner_heading_sub != blank %}
+                                            color:{{ block.settings.color_banner_heading_sub }};
+                                            {% endif %}">
+                                    {% render 'multilang' with block.settings.banner_heading_sub  %}
+                                </h3>
+                                {% endif %}
+                            {% endcomment %}
+
+                                {% if item.header != blank %}
+                                <h2 class="banner-heading"
+                                    style="{% if block.settings.font_size_banner_heading != blank %}
+                                                {% if section.settings.layout_style == 'layout_style_2' %}
+                                                    font-size: {{ block.settings.font_size_banner_heading }};
+                                                {% else %}
+                                                    font-size: {{ block.settings.font_size_banner_heading }};
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if block.settings.color_banner_heading != blank %}
+                                            color:{{ block.settings.color_banner_heading }};
+                                            {% endif %}">
+                                    <span class="line" style="background-color: {{ block.settings.color_banner_heading }};"></span>
+                                    {% render 'multilang' with item.header  %}
+                                </h2>
+                                {% endif %}
+
+                                {% if item.body != blank %}
+                                <div class="banner-des"
+                                    style="{% if block.settings.font_size_banner_des != blank %}
+                                            font-size: {{ block.settings.font_size_banner_des }};
+                                            {% endif %}
+                                            {% if block.settings.color_banner_des != blank %}
+                                            color: {{ block.settings.color_banner_des }};
+                                            {% endif %}">
+                                    {% render 'multilang' with item.body  %}
+                                </div>
+                                {% endif %}
+
+                                {% if block.settings.banner_button != blank %}
+                                <a href="{{ block.settings.link }}" class="banner-button btn"
+                                    style="{% if block.settings.bg_banner_button != blank %}
+                                            background-color:{{ block.settings.bg_banner_button }};
+                                            {% endif %}
+                                            {% if block.settings.border_banner_button != blank %}
+                                            border-color:{{ block.settings.border_banner_button }};
+                                            {% endif %}
+                                            {% if block.settings.color_banner_button != blank %}
+                                            color:{{ block.settings.color_banner_button }};
+                                            {% endif %}">
+                                    {% render 'multilang' with block.settings.banner_button %}
+                                </a>
+                                {% endif %}
+                                
+                              </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>  
+                    <style>
+                        #custom-block-style-{{block.id}} .banner-small-img .banner-content .banner-button:hover {
+                            color: {{ block.settings.color_banner_button_hover }} !important;
+                            background-color: {{ block.settings.bg_banner_button_hover }} !important;
+                            border-color: {{ block.settings.border_banner_button_hover }} !important;
+                            -webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+                            -moz-box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+                            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+                        }
+                        {% if block.settings.content_style == 'style_2' %}
+                            #custom-block-style-{{block.id}} .banner-content .banner-sub-heading {
+                                margin-bottom: {{ block.settings.banner_heading_sub_margin }}
+                            }
+                        {% endif %}
+
+                        @media (max-width: 1199px) {
+                            #custom-block-style-{{block.id}} .banner-content .banner-sub-heading {
+                                font-size: {{ block.settings.font_size_banner_heading_sub }} !important;
+                            }
+                            #custom-block-style-{{block.id}} .banner-content .banner-heading {
+                                font-size: {{ block.settings.font_size_banner_heading_mb }} !important;
+                                line-height: 1.25em;
+                            }
+                            #custom-block-style-{{block.id}} .banner-content .banner-des {
+                                font-size: {{ block.settings.font_size_banner_des_mb }} !important;
+                            }
+                            {% if block.settings.content_style == 'style_2' %}
+                                #custom-block-style-{{block.id}} .banner-content .banner-sub-heading {
+                                    margin-bottom: {{ block.settings.banner_heading_sub_margin_mb }}
+                                }
+                            {% endif %}
+                        }
+                    </style>        
+                </div>      
+            </div>
+            {% endif %}        
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+  {% assign margin_bottom =  section.settings.margin_bottom %}  
+    
+    {% if section.settings.display_bg_banner %}
+        @media (max-width: 767px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ section.settings.margin_bottom_mb }}px;
+              padding-bottom: {{ section.settings.margin_bottom_mb }}px;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1199px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ section.settings.margin_bottom_tab }}px;
+              padding-bottom: {{ section.settings.margin_bottom_tab }}px;
+            }
+        }
+        @media (min-width: 1200px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ margin_bottom }}px;
+              padding-bottom: {{ margin_bottom }}px;
+            }
+        }
+    {% else %}
+        @media (max-width: 767px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ section.settings.margin_bottom_mb }}px;
+              padding-bottom: {{ section.settings.margin_bottom_mb }}px;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1199px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ section.settings.margin_bottom_tab }}px;
+              padding-bottom: {{ section.settings.margin_bottom_tab }}px;
+            }
+        }
+        @media (min-width: 1200px) {
+            #custom-block-{{ section.id }} {
+              padding-top: {{ margin_bottom }}px;
+              padding-bottom: {{ margin_bottom }}px;
+            }
+        }
+    {% endif %}
+
+
+    #custom-block-{{ section.id }} .img-box {
+        text-align: {{ section.settings.img_align }};
+    }
+
+    {% if section.settings.display_bg_banner %}
+        #custom-block-{{ section.id }} {
+            background-color: {{ section.settings.bg_color_banner }};
+        }
+        #custom-block-{{ section.id }} .banner-large-img {
+            max-width: 1170px;
+            margin: 0 auto;
+        }
+    {% endif %}
+    
+</style>
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "Product Metafields",
+    "class": "ge-product-metafields home-custom-block-baner-sections",
+    "max_blocks": 1,
+    "settings": [
+        {
+            "type": "select",
+            "id": "layout",
+            "label": "Banner Layout:",
+            "options": [
+                {
+                    "value": "default",
+                    "label": "Default"
+                },
+                {
+                    "value": "padd_60",
+                    "label": "Boxed"
+                },
+                {
+                    "value": "full",
+                    "label": "Full Width"
+                }
+            ],
+            "default": "full"
+        },
+        {
+            "type": "select",
+            "id": "layout_style",
+            "label": "Layout Style:",
+            "options": [
+              {
+                "value": "layout_style_1",
+                "label": "Style 1" 
+              },
+              { 
+                "value": "layout_style_2",
+                "label": "Style 2" 
+              }
+            ],
+            "default": "layout_style_1"
+        },
+        {
+            "type": "checkbox",
+            "id": "display_bg_banner",
+            "label": "Display Background Color",
+            "default": false
+        },
+        {
+            "type" : "color",
+            "id" : "bg_color_banner",
+            "label" : "Background Color",
+            "default" : "#f5f5f5"
+        },
+        {
+            "type": "header",
+            "content": "Header"
+        },
+        {
+            "type": "text",
+            "id": "widget_title",
+            "label": "Widget Title"
+        },
+        {
+            "type" : "textarea",
+            "id" : "widget_des",
+            "label" : "Description"
+        },
+        {
+            "type": "select",
+            "id": "title_style",
+            "label": "Title Style:",
+            "options": [
+                {
+                    "value": "style_1",
+                    "label": "Style 1" 
+                },
+                { 
+                    "value": "style_2",
+                    "label": "Style 2" 
+                }          
+            ],
+            "default": "style_1"
+        },
+        {
+            "type": "select",
+            "id": "img_align",
+            "label": "Image Align:",
+            "default": "center",
+            "options": [
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "left",
+                    "label": "Left"
+                },              
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ]
+        }, 
+        {
+            "type": "header",
+            "content": "Section Padding:"
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom_mb",
+            "label": "Mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 25
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom_tab",
+            "label": "Tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 30
+        },             
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "label": "Desktop",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 30
+        }       
+    ],
+    "blocks": [
+        {
+            "type": "smallImg",
+            "name": "Small Image",
+            "settings": [
+            {
+                "type": "select",
+                "id": "banner_is",
+                "label": "Banner is:",
+                "default": "left",
+                "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },              
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+                ]
+            }, 
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label" : "Select Image"
+            },
+            {
+                "type": "header",
+                "content": "Banner Content"
+            },
+            {
+                "type": "select",
+                "id": "content_style",
+                "label": "Content Style:",
+                "options": [
+                    {
+                        "value": "style_1",
+                        "label": "Style 1" 
+                    },
+                    { 
+                        "value": "style_2",
+                        "label": "Style 2" 
+                    }          
+                ],
+                "default": "style_1"
+            },
+            {
+                "type" : "color",
+                "id" : "bg_banner_content",
+                "label" : "Background Banner Content",
+                "default" : "#fafafa"
+            },
+            {
+                "type" : "text",
+                "id" : "banner_heading",
+                "label" : "Banner Heading",
+                "default" : "Metropolis"
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_heading",
+                "label" : "Heading Font Size ",
+                "default" : "20px"
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_heading_mb",
+                "label" : "Heading Font Size Mobile",
+                "default" : "20px"
+            },
+            {
+                "type" : "color",
+                "id" : "color_banner_heading",
+                "label" : "Heading Color",
+                "default" : "#232323"
+            },
+            {
+                "type" : "text",
+                "id" : "banner_heading_sub",
+                "label" : "Banner Sub Heading"
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_heading_sub",
+                "label" : "Sub Heading Font Size ",
+                "default" : "14px"
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_heading_sub_mb",
+                "label" : "Sub Heading Font Size Mobile",
+                "default" : "14px"
+            },
+            {
+                "type" : "text",
+                "id" : "banner_heading_sub_margin",
+                "label" : "Sub Heading Margin Bottom Style 2",
+                "default" : "12px"
+            },
+            {
+                "type" : "text",
+                "id" : "banner_heading_sub_margin_mb",
+                "label" : "Sub Heading Margin Bottom Style 2 Mobile",
+                "default" : "12px"
+            },
+            {
+                "type" : "color",
+                "id" : "color_banner_heading_sub",
+                "label" : "Sub Heading Color",
+                "default" : "#232323"
+            },
+            {
+                "type" : "textarea",
+                "id" : "banner_des",
+                "label" : "Banner Description",
+                "default": "Pellentesque posuere orci lobortis scelerisque blandit. Donec id tellus lacinia an tincidunt risus an consequat delit quisquemos."
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_des",
+                "label" : "Description Font Size",
+                "default" : "12px"
+            },
+            {
+                "type" : "text",
+                "id" : "font_size_banner_des_mb",
+                "label" : "Description Font Size Mobile",
+                "default" : "12px"
+            },
+            {
+                "type" : "color",
+                "id" : "color_banner_des",
+                "label" : "Description Color",
+                "default" : "#232323"
+            },
+            {
+                "type" : "text",
+                "id" : "banner_button",
+                "label" : "Button Banner",
+                "default" : "Shop Now"
+            },
+            {
+                "type" : "url",
+                "id" : "link",
+                "label" : "Banner Link"
+            },
+            {
+                "type" : "color",
+                "id" : "bg_banner_button",
+                "label" : "Background Button",
+                "default" : "#fff"
+            },
+            {
+                "type" : "color",
+                "id" : "border_banner_button",
+                "label" : "Border Button",
+                "default" : "#5a5a5a"
+            },
+            {
+                "type" : "color",
+                "id" : "color_banner_button",
+                "label" : "Button Color",
+                "default" : "#232323"
+            },
+            {
+                "type" : "color",
+                "id" : "bg_banner_button_hover",
+                "label" : "Background Button Hover"
+            },
+            {
+                "type" : "color",
+                "id" : "border_banner_button_hover",
+                "label" : "Border Button Hover"
+            },
+            {
+                "type" : "color",
+                "id" : "color_banner_button_hover",
+                "label" : "Button Color Hover"
+            },
+            {
+              "type": "text",
+              "id": "video_link",
+              "label": "YouTube video ID",
+              "default": "eTCtDW7O1aM",
+              "info": "[Find your YouTube video ID ](https://www.youtube.com/watch?v=liJVSwOiiwg)."
+            },
+            {
+              "type" : "color",
+              "id" : "video_icon_color",
+              "label" : "Video Icon Color",
+              "default" : "#fff"
+            },
+            {
+              "type" : "color",
+              "id" : "bg_video_icon",
+              "label" : "Video Icon Background Color",
+              "default" : "#000"
+            }
+        ]
+    },
+        {
+            "type": "largeImg",
+            "name": "Large Image",
+            "settings": [           
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label" : "Select Image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_mb",
+                    "label" : "Select Image Mobile"
+                },
+                {
+                    "type": "header",
+                    "content": "Parallax"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "display_parallax",
+                    "label": "Display Parallax",
+                    "default": false
+                },
+                {
+                    "type" : "checkbox",
+                    "id" : "dpl_down_arrow",
+                    "label" : "Display icon Scroll Down",
+                    "default" : false,
+                    "info" : "(Use for Enable Display Parallax)"
+                },                
+                {
+                    "type" : "text",
+                    "id" : "height_img_parallax",
+                    "label" : "Height Parallax Image",
+                    "default" : "970px"
+                },
+                {
+                    "type": "header",
+                    "content": "Banner Content"
+                },
+                {
+                    "type": "select",
+                    "id": "content_style",
+                    "label": "Content Style:",
+                    "options": [
+                        {
+                            "value": "style_1",
+                            "label": "Style 1" 
+                        },
+                        { 
+                            "value": "style_2",
+                            "label": "Style 2" 
+                        }          
+                    ],
+                    "default": "style_1"
+                },
+                {
+                    "type" : "checkbox",
+                    "id" : "display_bg_animation",
+                    "label" : "Display Background Animation",
+                    "default" : false
+                },
+                {
+                    "type" : "color",
+                    "id" : "color_bg_animation",
+                    "label" : "Background Color Animation",
+                    "default" : "#f6f6f6",
+                    "info" : "(Use for Enable Background Animation)"
+                }, 
+                {
+                    "type": "select",
+                    "id": "alignment",
+                    "label": "Text alignment",
+                    "default": "left",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Right"
+                        }
+                    ]
+                },
+                {
+                    "type" : "text",
+                    "id" : "banner_heading",
+                    "label" : "Banner Heading",
+                    "default" : "Metropólis"
+                },
+                {
+                    "type" : "text",
+                    "id" : "font_size_banner_heading",
+                    "label" : "Heading Font Size ",
+                    "default" : "40px"
+                },
+                {
+                    "type" : "text",
+                    "id" : "font_size_banner_heading_mb",
+                    "label" : "Heading Font Size Mobile",
+                    "default" : "24px"
+                },
+                {
+                    "type" : "color",
+                    "id" : "color_banner_heading",
+                    "label" : "Heading Color",
+                    "default" : "#232323"
+                }, 
+                {
+                    "type" : "color",
+                    "id" : "color_banner_heading_style2",
+                    "label" : "Heading Color Style 2",
+                    "default" : "#10ffda"
+                },
+                {
+                    "type" : "color",
+                    "id" : "color_banner_heading_mb",
+                    "label" : "Heading Color Mobile",
+                    "default" : "#232323"
+                },
+                {
+                    "type" : "text",
+                    "id" : "banner_sub_heading",
+                    "label" : "Banner Sub Heading",
+                    "default" : "Artisan Florists"
+                },
+                {
+                    "type" : "text",
+                    "id" : "font_size_banner_sub_heading",
+                    "label" : "Sub Heading Font Size ",
+                    "default" : "13px"
+                },
+                {
+                    "type" : "text",
+                    "id" : "font_size_banner_sub_heading_mb",
+                    "label" : "Sub Heading Font Size Mobile",
+                    "default" : "13px"
+                },
+                {
+                    "type" : "color",
+                    "id" : "color_banner_sub_heading",
+                    "label" : "Sub Heading Color",
+                    "default" : "#ffffff"
+                },
+                {
+                    "type" : "color",
+                    "id" : "color_banner_sub_heading_mb",
+                    "label" : "Sub Heading Color Mobile",
+                    "default" : "#232323"
+                },
+                {
+                    "type" : "textarea",
+                    "id" : "banner_des",
+                    "label" : "Banner Description",
+                    "default": "Pellentesque posuere orci lobortis scelerisque blandit. Donec id tellus lacinia an tincidunt risus an consequat delit quisquemos."
+                },
+                {
+                    "type" : "text",
+                    "id" : "font_size_banner_des",
+                    "label" : "Description Font Size",
+                    "default" : "12px"
+                },
+                {
+                    "type" : "text",
+                    "id" : "font_size_banner_des_mb",
+                    "label" : "Description Font Size Mobile",
+                    "default" : "12px"
+                },
+                {
+                    "type" : "color",
+                    "id" : "color_banner_des",
+                    "label" : "Description Color",
+                    "default" : "#232323"
+                },
+                {
+                    "type" : "color",
+                    "id" : "color_banner_des_mb",
+                    "label" : "Description Color Mobile",
+                    "default" : "#232323"
+                },
+                {
+                    "type" : "textarea",
+                    "id" : "countdown",
+                    "label" : "Countdown"
+                },
+                {
+                    "type" : "text",
+                    "id" : "banner_button",
+                    "label" : "Button Banner",
+                    "default" : "Shop The Looks"
+                },
+                {
+                    "type" : "url",
+                    "id" : "link",
+                    "label" : "Banner Link"
+                },
+                {
+                    "type" : "color",
+                    "id" : "bg_banner_button",
+                    "label" : "Background Button",
+                    "default" : "#232323"
+                },
+                {
+                    "type" : "color",
+                    "id" : "border_banner_button",
+                    "label" : "Border Button",
+                    "default" : "#232323"
+                },
+                {
+                    "type" : "color",
+                    "id" : "color_banner_button",
+                    "label" : "Button Color",
+                    "default" : "#fff"
+                },
+                {
+                    "type" : "color",
+                    "id" : "bg_banner_button_mb",
+                    "label" : "Background Button Mobile",
+                    "default" : "#232323"
+                },
+                {
+                    "type" : "color",
+                    "id" : "border_banner_button_mb",
+                    "label" : "Border Button Mobile",
+                    "default" : "#232323"
+                },
+                {
+                    "type" : "color",
+                    "id" : "color_banner_button_mb",
+                    "label" : "Button Color Mobile",
+                    "default" : "#fff"
+                },
+                {
+                    "type" : "text",
+                    "id" : "min_width_banner_button",
+                    "label" : "Banner Button Min Width",
+                    "default" : "237px"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "GE Product Metafields",
+            "category": "GE Product Metafields",
+            "blocks": [
+                {
+                    "type": "smallImg"
+                }         
+            ]
+        }
+    ]
+  }
+{% endschema %}
+
+
+
+<style>
+  #custom-block-{{section.id}} .banner-content {
+    text-align: left;
+    justify-content: start;
+  }
+  #custom-block-{{section.id}} .banner-content .banner-heading .line {
+    display: none;
+  }
+  #custom-block-{{section.id}} .banner-content .banner-des {
+    max-width: 100%;
+    margin-left: 0;
+  }
+  #custom-block-{{section.id}} .inner-content {
+    max-width: 570px;
+    width: 100%;
+  }
+  #custom-block-{{section.id}} .banner-content .banner-button {
+    font-size: 20px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border: 2px solid;
+  }
+  #custom-block-{{section.id}} .banner-content .banner-heading {
+    margin-bottom: 0 !important;
+    letter-spacing: 0;
+  }
+  #custom-block-{{section.id}} .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  #custom-block-{{section.id}} .inner-content ul li {
+    list-style: disc;
+    line-height: normal;
+  }
+  #custom-block-{{section.id}} .inner-content ul {
+    padding-left: 1rem;
+    margin-top: 1rem;
+  }
+  #custom-block-{{section.id}} .inner-content h5, 
+  #custom-block-{{section.id}} .inner-content h6 {
+    font-size: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  @media screen and (max-width: 1366px){
+    #custom-block-{{section.id}} .banner-content {
+      padding: 2rem;
+    }
+  }
+  @media screen and (max-width: 767px){
+    #custom-block-{{section.id}} .inner-content {
+      text-align: center;
+    }
+    #custom-block-{{section.id}} .banner-content .banner-heading {
+      line-height: normal;
+    }
+    #custom-block-{{section.id}} .inner-content ul li {
+      text-align: left;
+    }
+    #custom-block-{{section.id}} .banner-content {
+      padding-top: 0;
+    }
+  }
+</style>

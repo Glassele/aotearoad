@@ -1,0 +1,557 @@
+{% if section.settings.show_instagram %}
+<section class="home-instagram instagram home-custom-instagram {{section.settings.layout_style}}" id="new-instagram-{{section.id}}">
+    <div class="{% if section.settings.layout_style == 'layout_style_3' %}container{% else %}container{% endif %}">
+        {% if section.settings.images_per_row == '5' %}
+        {% assign column_size = 5 %}
+        {% else %}
+        {% assign column_size = 12 | divided_by: section.settings.images_per_row %}
+        {% endif %}
+        {% assign class='' %}
+        {% if section.settings.layout_style == 'layout_style_3' %}
+        {% else %}
+        {% capture class%}col-6 col-md-4 col-lg-{{column_size}} hide{% endcapture %}
+        {% endif %}
+        
+        {% if section.settings.instagram_title != blank %}
+        <div class="widget-title{% if section.settings.title_style == 'style_2' %} not-before{% endif %}">   
+            <h3 class="box-title">
+              <a target="_blank" href="{{ section.settings.link }}"
+              <span class="title"> 
+                  {% if section.settings.layout_style == 'layout_style_1' %}
+                      <i class="fa fa-instagram fa-lg" aria-hidden="true"></i>
+                  {% endif %}
+                  {% render 'multilang' with section.settings.instagram_title %}
+                  </span>
+              </a>
+            </h3>
+            {% if section.settings.instagram_des != blank %}
+                <p>
+                    {% render 'multilang' with section.settings.instagram_des %}
+                </p>        
+            {% endif %}
+          {% if section.settings.banner_button != blank %}
+          <a target="_blank" href="{{ section.settings.link }}" class="insta-btn btn"
+             style="{% if section.settings.bg_banner_button != blank %}
+                    background-color:{{ section.settings.bg_banner_button }};
+                    {% endif %}
+                    {% if section.settings.border_banner_button != blank %}
+                    border-color:{{ section.settings.border_banner_button }};
+                    {% endif %}
+                    {% if section.settings.color_banner_button != blank %}
+                    color:{{ section.settings.color_banner_button }};
+                    {% endif %}">
+            {% render 'multilang' with section.settings.banner_button %}
+          </a>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% if section.settings.type_instagram == 'app' %}
+        <div class="caption-instagram">
+          {{ section.settings.embed_code }}
+        </div>
+        {% else %}
+
+        <div id="instafeed" class="row instagram-grid" data-instagram-feed-custom data-limit="{{ section.settings.limit }}" data-rows="{{ section.settings.images_per_row }}">
+          {% assign number = section.settings.limit | plus: 0 %}
+          {% for block in section.blocks %}
+          {% if block.settings.enable and block.settings.image != blank %}
+          {%- assign preview_img = block.settings.image -%}
+          <div class="item item-grid {{ class }} span-{{forloop.index}}">
+            <a class="animate-scale adaptive_height" {% if section.settings.type_instagram_by_gallery == 'link' %}href="{{ block.settings.link }}"{% else %}class="fancybox" rel="gallery1" href="{{ block.settings.image | img_url: 'master' }}" data-fancybox="images"{% endif %} style="padding-top: {{ 1 | divided_by: preview_img.aspect_ratio | times: 100 }}%">
+              <img {% render 'lazyload' %} data-srcset="{{ block.settings.image | img_url: '640x' }}" alt="{{ block.settings.image.alt | default: shop.name }}" />
+              <i class="fa fa-instagram fa-lg position-absolute top-50 start-50 translate-middle" aria-hidden="true"></i>
+            </a>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% unless section.settings.layout_style == 'layout_style_3' %}
+        <div class="infinite-scrolling-instagram">
+          <a href="javascript:void(0)">
+            <svg id="icon-plus-instagram" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 42 42" xml:space="preserve">
+              <polygon points="42,19 23,19 23,0 19,0 19,19 0,19 0,23 19,23 19,42 23,42 23,23 42,23 "/>
+            </svg>
+          </a>
+        </div>
+        {% endunless %}
+        
+        {% endif %}
+        
+    </div>
+</section>
+
+<style>
+
+    {% assign instagram_bg =  section.settings.instagram_bg %}
+
+    {% if section.settings.layout_style == 'layout_style_1' %}
+        #new-instagram-{{section.id}} {
+            padding-top: 40px;
+        }
+    {% endif %}
+
+    {% if section.settings.layout_style == 'layout_style_3' %}
+        #new-instagram-{{section.id}} {
+            border-top: 1px solid {{section.settings.instagram_bg_border}}
+        }
+    {% endif %}
+        
+    #new-instagram-{{section.id}},
+    #new-instagram-{{section.id}} .widget-title .box-title .title {
+        background-color: {{ instagram_bg }};
+    }
+    .home-custom-instagram .infinite-scrolling-instagram a svg{
+        fill: {{  section.settings.icon_plus_instagram }};
+    }
+
+    #new-instagram-{{section.id}} .widget-title .box-title {
+        color: {{ section.settings.color_title }};
+    }
+    #new-instagram-{{section.id}} .widget-title p {
+        color: {{ section.settings.color_des }};
+    }
+
+</style>
+{% unless section.settings.layout_style_3 %}
+<script>
+    $(document).ready(function() {
+      var column = 'col-6 col-md-4 col-lg-{{column_size}}';
+      var toshow = '{{ section.settings.limit }}';
+      var instagramBlock = $('[data-instagram-feed-custom]');
+
+        instagramBlock.each(function() {
+            
+            var self = $(this),
+                dataRows = self.data('rows'),
+                dataLimit = self.data('limit'),
+                item_instagram = self.find('.instagram-grid');
+            var i, y;
+
+
+
+            if ($(window).width() >= 1200) {
+                for (i = 1; i <= toshow; i++) {
+                    $('.item-grid:nth-child('+i+')').removeClass('hide');
+                }
+            } else if ($(window).width() >= 1024) {
+                for (i = 1; i <= 4; i++) {
+                    $('.item-grid:nth-child('+i+')').removeClass('hide');
+                }
+            } else if ($(window).width() >= 768) {
+                for (i = 1; i <= 3; i++) {
+                    $('.item-grid:nth-child('+i+')').removeClass('hide');
+                }
+            } else {
+                for (i = 1; i <= 4; i++) {
+                    $('.item-grid:nth-child('+i+')').removeClass('hide');
+                }
+            }
+
+            $(document).on('click', '.infinite-scrolling-instagram a', function() {
+                y = i;
+                if ($(window).width() > 1024)
+                    i = i + 4;
+                else
+                    i = i + 3;
+                for (y; y <= i; y++) {
+                    $('.item-grid:nth-child('+y+')').removeClass('hide');
+                }
+
+                if (!$('.item-grid.hide').length)
+                    $('.infinite-scrolling-instagram a').remove();
+            });
+
+            if (!$('.item-grid.hide').length){
+                $('.infinite-scrolling-instagram a').remove();
+            }
+
+        });
+    });
+</script>
+{% endunless %}
+
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Home Custom Instagram",
+    "class": "ge-home-custom-instagram home-instagram-sections",
+    "settings": [
+  		{
+          "type": "header",
+          "content": "Section Padding:"
+        },
+        {
+          "type": "range",
+          "id": "space_on",
+          "label": "Mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_tab",
+          "label": "Tablet",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 30
+        },  
+        {
+          "type": "range",
+          "id": "space_below",
+          "label": "Desktop",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "default": 20
+        },
+        {
+            "type": "select",
+            "id": "layout_style",
+            "label": "Layout Style:",
+            "options": [
+              {
+                "value": "layout_style_1",
+                "label": "Style 1" 
+              },
+              { 
+                "value": "layout_style_2",
+                "label": "Style 2" 
+              },
+              { 
+                "value": "layout_style_3",
+                "label": "Style 3" 
+              }
+            ],
+            "default": "layout_style_1"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_instagram",
+            "label": "Enable",
+            "default": true
+        },
+        {
+            "type" : "color",
+            "id" : "instagram_bg",
+            "label" : "Background Color",
+            "default" : "#fff"
+        },
+        {
+            "type" : "color",
+            "id" : "instagram_bg_border",
+            "label" : "Border Color Layout Style 3",
+            "default" : "#e3e3e3"
+        },
+        {
+            "type": "textarea",
+            "id": "instagram_title",
+            "label": "Title",
+            "default": "#Ella On Instagram"
+        },
+        {
+            "type" : "color",
+            "id" : "color_title",
+            "label" : "Color Title"
+        },
+        {
+            "type": "textarea",
+            "id": "instagram_des",
+            "label": "Instagram Description",
+            "default": "Phasellus lorem malesuada ligula pulvinar commodo maecenas"
+        },
+        {
+            "type" : "color",
+            "id" : "color_des",
+            "label" : "Color Description"
+        },
+        {
+            "type": "select",
+            "id": "title_style",
+            "label": "Title Style:",
+
+            "options": [
+                {
+                    "value": "style_1",
+                    "label": "Style 1" 
+                },
+                { 
+                    "value": "style_2",
+                    "label": "Style 2" 
+                }          
+            ],
+            "default": "style_1"
+        },
+        {
+            "type" : "radio",
+            "id" : "type_instagram",
+            "label" : "Show instagram by:",       
+            "options": [
+                {
+                    "value": "app",
+                    "label": "Embed Code App"
+                },
+                {
+                    "value": "default",
+                    "label": "Block image"
+                }
+            ],
+            "default": "default",
+            "info": "================="
+        },        		
+		{
+          "type" : "header",
+          "content" : "Settings For embed Code app"
+     	},
+		{
+		  "type" : "textarea",
+		  "id" : "embed_code",
+		  "label" : "Embed javascript Code"
+		},        		
+		{
+          "type" : "header",
+          "content" : "Settings For Image"
+     	},
+        {
+            "type" : "radio",
+            "id" : "type_instagram_by_gallery",
+            "label" : "Use gallery popup or Use link for image",       
+            "options": [
+                {
+                    "value": "link",
+                    "label": "Use link for image"
+                },
+                {
+                    "value": "popup_image",
+                    "label": "Use gallery popup"
+                }
+            ],
+            "default": "popup_image",
+            "info": "================="
+        },
+        {
+            "type": "text",
+            "id": "limit",
+            "label": "Limit the number of images to show",
+            "default": "100"
+        },
+        {
+            "type": "select",
+            "id": "images_per_row",
+            "label": "Images per row",
+            "options": [
+                {
+                    "value": "3",
+                    "label": "3"
+                },
+                {
+                    "value": "4",
+                    "label": "4"
+                },
+                {
+                    "value": "5",
+                    "label": "5"
+                },
+                {
+                    "value": "6",
+                    "label": "6"
+                }
+            ],
+            "default": "4"
+        },
+        {
+            "type" : "color",
+            "id" : "icon_plus_instagram",
+            "label" : "Icon Plus Color",
+            "default" : "#3c3c3c"
+        },
+        {
+          "type" : "text",
+          "id" : "banner_button",
+          "label" : "Button Banner",
+          "default" : "Shop Now"
+        },
+        {
+          "type" : "url",
+          "id" : "link",
+          "label" : "Banner Link"
+        },
+        {
+          "type" : "color",
+          "id" : "bg_banner_button",
+          "label" : "Background Button",
+          "default" : "#fff"
+        },
+        {
+          "type" : "color",
+          "id" : "border_banner_button",
+          "label" : "Border Button",
+          "default" : "#5a5a5a"
+        },
+        {
+          "type" : "color",
+          "id" : "color_banner_button",
+          "label" : "Button Color",
+          "default" : "#232323"
+        },
+        {
+          "type" : "color",
+          "id" : "bg_banner_button_hover",
+          "label" : "Background Button Hover"
+        },
+        {
+          "type" : "color",
+          "id" : "border_banner_button_hover",
+          "label" : "Border Button Hover"
+        },
+        {
+          "type" : "color",
+          "id" : "color_banner_button_hover",
+          "label" : "Button Color Hover"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "instagram",
+            "name": "Instagram",
+			"settings": [
+				{
+                  "type": "checkbox",
+                  "id": "enable",
+                  "label" : "Enable?",
+                  "default" : true
+                },
+				{
+                  "type": "image_picker",
+                  "id": "image",
+                  "label" : "Image"
+                },
+				{
+                  "type": "url",
+                  "id": "link",
+                  "label" : "Link"
+                }
+			]
+        }
+    ],
+    "presets": [
+        {
+            "name": "GE Home Custom Instagram",
+            "category": "GE Home Custom Instagram"
+        }
+    ]
+  }
+{% endschema %}
+
+<style>
+  {% assign margin_bottom =  section.settings.space_below %}
+
+  #new-instagram-{{section.id}}.home-custom-instagram.layout_style_3 .instagram-grid {
+    grid-gap: 0;
+  }
+  #new-instagram-{{section.id}}.home-custom-instagram.layout_style_3 .span-1 {
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+  }
+  #new-instagram-{{section.id}}.home-custom-instagram.layout_style_3 .span-3, 
+  #new-instagram-{{section.id}}.home-custom-instagram.layout_style_3 .span-10, 
+  #new-instagram-{{section.id}}.home-custom-instagram.layout_style_3 .span-17 {
+    grid-column-end: unset;
+    grid-row-end: unset;
+  }
+  #new-instagram-{{section.id}}.home-custom-instagram .container {
+    padding: 0 6px;
+  }
+  #new-instagram-{{section.id}} .widget-title .box-title::before {
+    display: none;
+  }
+  #new-instagram-{{section.id}} .fa-instagram::before {
+    font-size: 40px;
+    color: #fff;
+    opacity: 0;
+    -webkit-transition: opacity .7s ease;
+    -moz-transition: opacity .7s ease;
+    -ms-transition: opacity .7s ease;
+    -o-transition: opacity .7s ease;
+    transition: opacity .7s ease;
+  }
+  #new-instagram-{{section.id}} .adaptive_height:hover .fa-instagram::before {
+    opacity: 1 !important;
+  }
+  #new-instagram-{{section.id}} .fa.fa-instagram {
+    z-index: 9;
+    display: none;
+  }
+  #new-instagram-{{section.id}} .widget-title .box-title {
+    letter-spacing: 0;
+    font-size: 50px;
+    margin-bottom: 0;
+  }
+  #new-instagram-{{section.id}} .widget-title {
+    text-align: left;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  #new-instagram-{{section.id}} .insta-btn {
+    margin: 0 !important;
+    max-width: fit-content !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  #new-instagram-{{section.id}} .insta-btn:hover {
+    color: {{ section.settings.color_banner_button_hover }} !important;
+    background-color: {{ section.settings.bg_banner_button_hover }} !important;
+    border-color: {{ section.settings.border_banner_button_hover }} !important;
+  }
+  #new-instagram-{{section.id}}.home-custom-instagram .widget-title {
+    margin-bottom: 4rem;
+  }
+  #new-instagram-{{section.id}} {
+    border-top: 1px solid transparent;
+  }
+  @media (max-width: 767px) {
+    #new-instagram-{{section.id}} {
+      padding-top: {{ section.settings.space_on }}px !important;
+      padding-bottom: {{ section.settings.space_on }}px;
+    }
+    #new-instagram-{{section.id}} .widget-title .box-title {
+      font-size: 35px;
+    }
+  }
+  @media (max-width: 575px) {
+    #new-instagram-{{section.id}} .widget-title {
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+    }
+    #new-instagram-{{section.id}} .widget-title .box-title {
+      width: 100%;
+    }
+  }
+  @media (max-width: 550px) {
+    #new-instagram-{{section.id}}.home-custom-instagram .container {
+      padding: 0 15px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1199px) {
+    #new-instagram-{{section.id}} {
+      padding-top: {{ section.settings.margin_bottom_tab }}px !important;
+      padding-bottom: {{ section.settings.margin_bottom_tab }}px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    #new-instagram-{{section.id}} {
+      padding-top: {{ margin_bottom }}px;
+      padding-bottom: {{ margin_bottom }}px;
+    }
+  }	
+</style>

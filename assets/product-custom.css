@@ -1,0 +1,153 @@
+#dropdown-cart .product-details .product-name {
+  font-size: 16px;
+  line-height: normal;
+}
+body.template-product .product-title, 
+body.template-product .product-name {
+  line-height: normal;
+  font-size: 50px;
+}
+body.template-product .wrapper-images img {
+  background-color: #a9dde4;
+}
+body.template-product .halo-product-content .product_top {
+  align-items: center;
+}
+body.template-product .halo-product-content .product .product-shop {
+  padding: 4rem;
+}
+body.template-product .product-img-box .slider-nav {
+  display: none;
+}
+body.template-product .product-shop .short-description {
+  line-height: normal;
+}
+body.template-product #next-product-modal .product-name,
+body.template-product #prev-product-modal .product-name {
+  font-size: 16px;
+}
+body.template-product .product-img-box .slick-dots li.slick-active button {
+  border: transparent;
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+}
+body.template-product .product-img-box .slick-dots li button {
+  background: #76c0ca;
+  border-color: #76c0ca;
+}
+body.template-product .slick-dots {
+  position: relative;
+  top: -5rem;
+}
+body.template-product  .slick-dots li {
+  margin: 0 10px !important;
+}
+body.template-product .product-img-box .slick-arrow.slick-next {
+  right: 2rem;
+}
+body.template-product .product-img-box .slick-arrow.slick-prev {
+  left: 2rem;
+}
+body.template-product .slick-arrow .fa {
+  font-size: 40px;
+  font-weight: 300;
+  color: #000;
+}
+body.template-product .jdgm-prev-badge[data-average-rating="0.00"],
+body.template-product .jdgm-widget.jdgm-widget {
+  display: block !important;
+}
+body.template-product .jdgm-widget.jdgm-preview-badge {
+  margin-bottom: 1rem;
+}
+body.template-product .jdgm-rev-widg__title {
+  font-size: 50px;
+  text-transform: lowercase;
+  color: #3e3e3e;
+}
+body.template-product #judgeme_product_reviews {
+  max-width: 1600px !important;
+  margin: 0 auto;
+  margin-top: 100px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+body.template-product .jdgm-all-reviews-widget, 
+body.template-product .jdgm-rev-widg {
+  padding: 0;
+  border: 1px solid transparent;
+  border-bottom-color: #f6f6f6;
+  padding-bottom: 1rem;
+}
+body.template-product .jdgm-widget .jdgm-submit-question, 
+body.template-product .jdgm-widget .jdgm-submit-rev,
+body.template-product .jdgm-write-rev-link {
+  background: var(--background_1);
+  color: var(--color_1);
+  border-color: var(--border_1);
+  text-transform: lowercase;
+  font-size: 20px;
+  min-width: 256px;
+}
+body.template-product .jdgm-widget .jdgm-submit-question:hover, 
+body.template-product .jdgm-widget .jdgm-submit-rev:hover,
+body.template-product .jdgm-write-rev-link:hover {
+  background: var(--background_3);
+  border-color: var(--border_3);
+}
+@media screen and (max-width: 1366px){
+  body.template-product .breadcrumb {
+    display: none;
+  }
+  body.template-product .product-title, 
+  body.template-product .product-name {
+    font-size: 35px;
+  }
+  body.template-product .product-img-box .wrapper-images .slick-arrow {
+    display: none !important;
+  }
+  body.template-product .halo-product-content .product .product-shop {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+@media screen and (max-width: 1199px){
+  body.template-product .halo-product-content .product_top {
+    align-items: start;
+  }
+}
+@media screen and (max-width: 991px){
+  body.template-product .halo-product-content .product .product-shop {
+    padding: 2rem;
+  }
+  body.template-product .product-title, 
+  body.template-product .product-name {
+    font-size: 24px;
+  }
+  body.template-product #judgeme_product_reviews {
+    margin: 50px auto 0;
+  }
+}
+@media screen and (max-width: 767px){
+  body.template-product .product-title, 
+  body.template-product .product-name {
+    font-size: 30px;
+  }
+  body.template-product .halo-product-content .product .product-shop {
+    padding: 0.6rem;
+  }
+  body.template-product .jdgm-rev-widg__title {
+    font-size: 35px;
+  }
+}
+@media screen and (max-width: 768px){
+  .btn, .product-shop .shopify-payment-button button.shopify-payment-button__button, .tabs__product-page .spr-container .spr-summary-actions-newreview, .addresses-page .btn-edit-delete a {
+    padding: 10px 15px 10px;
+  }
+}
+@media screen and (max-width: 414px){
+  body.template-product .product-title, body.template-product .product-name {
+    font-size: 26px;
+  }
+}

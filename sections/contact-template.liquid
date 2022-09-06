@@ -1,0 +1,341 @@
+{% comment %}
+  This page template is a requirement if you are submitting your theme to the Shopify Theme Store.
+  Be sure to select page.contact as the template from the admin page to have this template take effect.
+
+  For information on adding more fields, visit:
+    - http://docs.shopify.com/support/configuration/store-customization/adding-fields-to-the-liquid-contact-form
+{% endcomment %}
+
+{% comment %}
+  Google Map
+{% endcomment %}
+
+<div class="contact-us-page">
+  <div class="container">
+    {% comment %}
+    {% render 'breadcrumb' %}
+    
+    {% if page.content != blank %}
+    <div class="rte">
+      {{ page.content }}
+    </div>
+    {% endif %}
+    {% endcomment %}
+    
+    <div class="wrapper">
+      <div class="row rows-1">
+        <div class="col-md-6 col-lg-6 form-contact order-2 order-md-1">     
+          <div class="inner-content">
+            <header class="page-header">
+              <h1>
+                {{ section.settings.contact_title | split: '|' | first }}
+              </h1>
+              <span class="line"></span>
+            </header> 
+
+            {% if settings.enable_multilang %}
+            <div class="lang1 des">
+              {{ section.settings.contact_text_desc | split: '[lang2]' | first }}
+            </div>
+            <div class="lang2 des">
+              {{ section.settings.contact_text_desc | split: '[lang2]' | last }}
+            </div>
+            {% else %}
+            <div class="des">
+              {{ section.settings.contact_text_desc | split: '[lang2]' | first }}
+            </div>
+            {% endif %}
+          
+          {% form 'contact' %}
+
+          {% comment %}
+          Successful message
+          {% endcomment %}
+
+          {% if form.posted_successfully? %}
+          <p class="note form-success" {% if settings.enable_multilang %}data-translate="contact.form.post_success"{% endif %}>
+            {{ 'contact.form.post_success' | t }}
+          </p>
+          {% endif %}
+
+          {{ form.errors | default_errors }}
+
+          <div id="contactFormWrapper">          
+            <div class="form-group">
+              <label for="contactFormName">
+                <span {% if settings.enable_multilang %}data-translate="contact.form.name"{%endif%}>
+                  {{ 'contact.form.name' | t }}
+                </span>
+              </label>
+              <input type="text" id="contactFormName" name="contact[name]" autocapitalize="words" placeholder="{{ section.settings.contact_your_name }}">
+            </div>
+
+            <div class="form-group">
+              <label for="contactFormEmail">
+                <span {% if settings.enable_multilang %}data-translate="contact.form.email"{%endif%}>
+                  {{ 'contact.form.email' | t }}
+                </span>
+                <em>*</em>
+              </label>
+              <input type="email" name="contact[email]" id="contactFormEmail" autocorrect="off" autocapitalize="off" placeholder="{{ section.settings.contact_your_email }}">
+            </div>
+            
+            <div class="form-group">
+              <input type="text" name="contact[subject]" id="contactFormSubject" placeholder="{{ section.settings.contact_subject }}">
+            </div>
+
+            <div class="form-group">
+              <label for="contactFormMessage">
+                <span {% if settings.enable_multilang %}data-translate="contact.form.message"{%endif%}>
+                  {{ 'contact.form.message' | t }}
+                </span>
+                <em>*</em>
+              </label>
+              <textarea rows="8" name="contact[body]" id="contactFormMessage" {% if settings.enable_multilang %}data-translate="contact.form.placeholder_message" translate-item="placeholder"{%endif%} placeholder="{{ 'contact.form.placeholder_message' | t }}"></textarea>
+            </div>
+
+            <input type="submit" class="btn" {% if settings.enable_multilang %}data-translate="contact.form.submit_contact"{%endif%} value="{{ 'contact.form.submit_contact' | t }}">
+          </div>
+          {% endform %}
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 contact-img order-1 order-md-2">
+          <div class="inner-content">
+            {% if section.settings.bg_img != blank %}
+            <img data-srcset="{{ section.settings.bg_img | img_url: ''}}" alt="{{ section.settings.bg_img.alt | default: shop.name }}" class="lazyload" data-sizes="auto">
+            {% else %}
+
+            {% if section.settings.location_code != blank %}
+            {% if settings.enable_multilang %}
+            <div class="location lang1">
+              {{ section.settings.location_code | split: '|' | first }}
+            </div>
+            <div class="location lang2">
+              {{ section.settings.location_code | split: '|' | last }}
+            </div>
+            {% else %}
+            <div class="location">
+              {{ section.settings.location_code | split: '|' | first }}
+            </div>
+            {% endif %}
+            {% endif %}
+
+            {% endif %}
+          </div>
+        </div>
+      </div> 
+      <div class="row rows-2">
+        <div class="col-12">
+  
+          {% if section.settings.map_title != blank %}
+          <h2>
+            {{ section.settings.map_title | split: '|' | first }}
+          </h2>
+          {% endif %}
+
+          {% if section.settings.map_contact_text_desc != blank %}
+          <div class="des">
+            {{ section.settings.map_contact_text_desc }}
+          </div>
+          {% endif %}
+
+          {% comment %}
+          <div class="elfsight-sapp-0f2fb406-990e-422a-ad3e-169506e36938"></div>
+          {% endcomment %}
+          
+          {% if section.settings.display_google_map %}
+          <div class="map">
+            {% if section.settings.google_map_code != blank %}
+            {{ section.settings.google_map_code }}
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>    
+</div>
+
+
+{% schema %}
+    {
+    "name": "Contact Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "display_google_map",
+        "label": "Display Google Map?",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "google_map_code",
+        "label": "Google Map Code"
+      },
+      {
+        "type": "text",
+        "id": "map_title",
+        "label": "Map Title",
+        "default": "stockist"
+      },
+      {
+        "type": "richtext",
+        "id": "map_contact_text_desc",
+        "label": "Map Description"
+      },
+      {
+        "type": "text",
+        "id": "contact_title",
+        "label": "Title",
+        "default": "Drop Us A Line"
+      },
+      {
+        "type": "textarea",
+        "id": "contact_text_desc",
+        "label": "Text Description"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_img",
+        "label": "BG Right Image"
+      },
+      {
+        "type": "text",
+        "id": "contact_your_name",
+        "label": "Placeholder text in Your Name"
+      },
+      {
+        "type": "text",
+        "id": "contact_subject",
+        "label": "Placeholder text in Your Subject"
+      },
+      {
+        "type": "text",
+        "id": "contact_your_email",
+        "label": "Placeholder text in Your Email"
+      },
+      {
+        "type": "checkbox",
+        "id": "display_location",
+        "label": "Display Location?",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "location_code",
+        "label": "Location Code"
+      }
+    ]
+  }
+{% endschema %}
+
+
+<style>
+  .contact-us-page .rows-1 {
+    margin: 100px 0;
+  }
+  .contact-us-page .page-header h1, h2 {
+    font-size: 50px;
+    text-transform: initial;
+    letter-spacing: 0;
+  }
+  h2 {
+    color: #3e3e3e;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .contact-us-page .line {
+    display: none;
+  }
+  .contact-us-page .form-contact > div {
+    background-color: #a9dde4;
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-us-page .page-header h1,
+  .contact-us-page .des, .contact-us-page .des a{
+    color: #fff;
+  }
+  .contact-us-page .form-group label {
+    display: none;
+  }
+  .main-content input[type="text"], 
+  .main-content input[type="password"], 
+  .main-content input[type="email"], 
+  .main-content input[type="tel"], 
+  .main-content textarea {
+    min-width: 100%;
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+  }
+  .contact-us-page .page-header h2, 
+  .contact-us-page .page-header h1,
+   .contact-us-page .form-contact{
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .contact-us-page .contact-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .contact-us-page .contact-img {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .contact-us-page .form-contact {
+    padding-right: 0;
+  }
+  #contactFormWrapper .btn {
+    min-width: 179px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  .contact-us-page .inner-content {
+    height: 100%;
+  }
+  ::placeholder,
+  ::-webkit-input-placeholder,
+  :-ms-input-placeholder {
+    opacity: 1;
+  }
+
+  .contact-us-page .rows-2 .des, .contact-us-page .rows-2 .des a {
+    color: #3e3e3e;
+    font-size: 20px;
+    text-align: center;
+  }
+  .contact-us-page .rows-2 .des a:hover {
+    text-decoration: underline;
+  }
+  
+  @media screen and (max-width: 1366px){
+    .contact-us-page .rows-1 {
+      margin-top: 0;
+    }
+  }
+  @media screen and (max-width: 1199px){
+    .contact-us-page .form-contact > div {
+      padding: 2rem;
+    }
+  }
+  @media screen and (max-width: 767px){
+    .contact-us-page .form-contact {
+      padding-left: 0;
+    }
+    .contact-us-page .page-header h1, h2 {
+      font-size: 35px;
+    }
+    .map iframe {
+      height: 500px;
+    }
+  }
+  @media screen and (max-width: 414px){
+    .map iframe {
+      height: 400px;
+    }
+  }
+</style>

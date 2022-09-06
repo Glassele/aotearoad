@@ -1,0 +1,233 @@
+{% comment %}
+  This page template is a requirement if you are submitting your theme to the Shopify Theme Store.
+  Be sure to select page.contact as the template from the admin page to have this template take effect.
+
+  For information on adding more fields, visit:
+    - http://docs.shopify.com/support/configuration/store-customization/adding-fields-to-the-liquid-contact-form
+{% endcomment %}
+
+{% comment %}
+  Google Map
+{% endcomment %}
+
+<div class="stockist-page">
+  <div class="container">
+    <div class="wrapper">
+      <div class="row rows-2">
+        <div class="col-12">
+  
+          {% if section.settings.map_title != blank %}
+          <h2>
+            {{ section.settings.map_title | split: '|' | first }}
+          </h2>
+          {% endif %}
+
+          {% if section.settings.map_contact_text_desc != blank %}
+          <div class="des">
+            {{ section.settings.map_contact_text_desc }}
+          </div>
+          {% endif %}
+          
+          <div class="elfsight-sapp-0f2fb406-990e-422a-ad3e-169506e36938"></div>
+          
+          {% if section.settings.display_google_map %}
+          <div class="map">
+            {% if section.settings.google_map_code != blank %}
+            {{ section.settings.google_map_code }}
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>    
+</div>
+
+
+{% schema %}
+    {
+    "name": "Stockist Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "display_google_map",
+        "label": "Display Google Map?",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "google_map_code",
+        "label": "Google Map Code"
+      },
+      {
+        "type": "text",
+        "id": "map_title",
+        "label": "Map Title",
+        "default": "stockist"
+      },
+      {
+        "type": "richtext",
+        "id": "map_contact_text_desc",
+        "label": "Map Description"
+      },
+      {
+        "type": "text",
+        "id": "contact_title",
+        "label": "Title",
+        "default": "Drop Us A Line"
+      },
+      {
+        "type": "textarea",
+        "id": "contact_text_desc",
+        "label": "Text Description"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_img",
+        "label": "BG Right Image"
+      },
+      {
+        "type": "text",
+        "id": "contact_your_name",
+        "label": "Placeholder text in Your Name"
+      },
+      {
+        "type": "text",
+        "id": "contact_subject",
+        "label": "Placeholder text in Your Subject"
+      },
+      {
+        "type": "text",
+        "id": "contact_your_email",
+        "label": "Placeholder text in Your Email"
+      },
+      {
+        "type": "checkbox",
+        "id": "display_location",
+        "label": "Display Location?",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "location_code",
+        "label": "Location Code"
+      }
+    ],
+    "presets": [
+        {
+            "name": "Stockist"
+        }
+    ]
+  }
+{% endschema %}
+
+
+<style>
+  .stockist-page  {
+    margin: 100px 0;
+  }
+  .stockist-page .page-header h1, h2 {
+    font-size: 50px;
+    text-transform: initial;
+    letter-spacing: 0;
+  }
+  h2 {
+    color: #3e3e3e;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .stockist-page .line {
+    display: none;
+  }
+  .stockist-page .form-contact > div {
+    background-color: #a9dde4;
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .stockist-page .page-header h1,
+  .stockist-page .des, .stockist-page .des a{
+    color: #fff;
+  }
+  .stockist-page .form-group label {
+    display: none;
+  }
+  .main-content input[type="text"], 
+  .main-content input[type="password"], 
+  .main-content input[type="email"], 
+  .main-content input[type="tel"], 
+  .main-content textarea {
+    min-width: 100%;
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+  }
+  .stockist-page .page-header h2, 
+  .stockist-page .page-header h1,
+   .stockist-page .form-contact{
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .stockist-page .contact-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .stockist-page .contact-img {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .stockist-page .form-contact {
+    padding-right: 0;
+  }
+  #contactFormWrapper .btn {
+    min-width: 179px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  .stockist-page .inner-content {
+    height: 100%;
+  }
+  ::placeholder,
+  ::-webkit-input-placeholder,
+  :-ms-input-placeholder {
+    opacity: 1;
+  }
+
+  .stockist-page .rows-2 .des, .stockist-page .rows-2 .des a {
+    color: #3e3e3e;
+    font-size: 20px;
+    text-align: center;
+  }
+  .stockist-page .rows-2 .des a:hover {
+    text-decoration: underline;
+  }
+  
+  @media screen and (max-width: 1366px){
+    .stockist-page {
+      margin-top: 0;
+    }
+  }
+  @media screen and (max-width: 1199px){
+    .stockist-page .form-contact > div {
+      padding: 2rem;
+    }
+  }
+  @media screen and (max-width: 767px){
+    .stockist-page .form-contact {
+      padding-left: 0;
+    }
+    .stockist-page .page-header h1, h2 {
+      font-size: 35px;
+    }
+    .map iframe {
+      height: 500px;
+    }
+  }
+  @media screen and (max-width: 414px){
+    .map iframe {
+      height: 400px;
+    }
+  }
+</style>
